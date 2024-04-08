@@ -8,13 +8,13 @@ class TelefonkonyvController extends Controller
 {
     public function index()
     {
-        // Itt lehetőség van adatok betöltésére és nézet megjelenítésére
+        
         return view('index');
     }
 
     public function mentes(Request $request)
     {
-        // Validáció
+        
         $request->validate([
             'nev' => 'required',
             'email' => 'required|email|unique:telefonkonyv,email',
@@ -23,7 +23,7 @@ class TelefonkonyvController extends Controller
             'levelezesicim' => 'nullable',
         ]);
 
-        // Adatok mentése az adatbázisba
+        
         Telefonkonyv::create([
             'nev' => $request->nev,
             'email' => $request->email,
@@ -32,7 +32,7 @@ class TelefonkonyvController extends Controller
             'levelezesicim' => $request->levelezesicim ?: $request->lakcim,
         ]);
 
-        // Visszairányítás az index oldalra
+    
         return redirect()->route('telefonkonyv.index')->with('success', 'Adatok sikeresen mentve!');
     }
 }
